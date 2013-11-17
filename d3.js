@@ -2850,9 +2850,9 @@ d3 = function() {
         clean = 1;
       },
       point: function(λ1, φ1) {
-        var sλ1 = λ1 > 0 ? π : -π, dλ = abs(λ1 - λ0);
+        var sλ1 = λ1 > 0 ? π - ε : -π + ε, dλ = abs(λ1 - λ0);
         if (abs(dλ - π) < ε) {
-          listener.point(λ0, φ0 = (φ0 + φ1) / 2 > 0 ? halfπ : -halfπ);
+          listener.point(λ0, φ0 = (φ0 + φ1) / 2 > 0 ? halfπ - ε : -halfπ + ε);
           listener.point(sλ0, φ0);
           listener.lineEnd();
           listener.lineStart();
@@ -2889,17 +2889,17 @@ d3 = function() {
     var φ;
     if (from == null) {
       φ = direction * halfπ;
-      listener.point(-π, φ);
-      listener.point(0, φ);
-      listener.point(π, φ);
-      listener.point(π, 0);
-      listener.point(π, -φ);
-      listener.point(0, -φ);
-      listener.point(-π, -φ);
-      listener.point(-π, 0);
-      listener.point(-π, φ);
+      listener.point(-π + ε, φ - ε);
+      listener.point(0, φ - ε);
+      listener.point(π - ε, φ - ε);
+      listener.point(π - ε, ε);
+      listener.point(π - ε, -φ + ε);
+      listener.point(0, -φ + ε);
+      listener.point(-π + ε, -φ + ε);
+      listener.point(-π + ε, 0);
+      listener.point(-π + ε, φ - ε);
     } else if (abs(from[0] - to[0]) > ε) {
-      var s = from[0] < to[0] ? π : -π;
+      var s = from[0] < to[0] ? π - ε : -π + ε;
       φ = direction * s / 2;
       listener.point(-s, φ);
       listener.point(0, φ);
@@ -2922,7 +2922,7 @@ d3 = function() {
           clean = 1;
         },
         point: function(λ, φ) {
-          var point1 = [ λ, φ ], point2, v = visible(λ, φ), c = smallRadius ? v ? 0 : code(λ, φ) : v ? code(λ + (λ < 0 ? π : -π), φ) : 0;
+          var point1 = [ λ, φ ], point2, v = visible(λ, φ), c = smallRadius ? v ? 0 : code(λ, φ) : v ? code(λ + (λ < 0 ? π - ε : -π + ε), φ) : 0;
           if (!point0 && (v00 = v0 = v)) listener.lineStart();
           if (v !== v0) {
             point2 = intersect(point0, point1);

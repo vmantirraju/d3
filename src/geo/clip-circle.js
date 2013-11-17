@@ -42,7 +42,7 @@ function d3_geo_clipCircle(radius) {
             v = visible(λ, φ),
             c = smallRadius
               ? v ? 0 : code(λ, φ)
-              : v ? code(λ + (λ < 0 ? π : -π), φ) : 0;
+              : v ? code(λ + (λ < 0 ? π - ε : -π + ε), φ) : 0;
         if (!point0 && (v00 = v0 = v)) listener.lineStart();
         // Handle degeneracies.
         // TODO ignore if not clipping polygons.
